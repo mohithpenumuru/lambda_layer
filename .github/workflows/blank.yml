@@ -1,0 +1,43 @@
+name: Create Lambda Layer
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  create-layer:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.11'  # Specify the Python version compatible with Lambda
+
+      - name: Install dependencies
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt -t python/lib/python3.11/site-packages
+
+      - name: Create deployment package
+        run: |
+          zip -r lambda_layer.zip python
+          
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: lambda_layer
+          path: lambda_layer.zip
+
+      - name: Clean up
+        run: |
+          rm -rf python
+          rm lambda_layer.zip
