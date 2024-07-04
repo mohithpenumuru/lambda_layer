@@ -31,11 +31,7 @@ jobs:
         run: |
           zip -r lambda_layer.zip python
           
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: lambda_layer
-          path: lambda_layer.zip
+      
 
       - name: Clean up
         run: |
