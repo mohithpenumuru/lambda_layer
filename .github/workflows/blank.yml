@@ -29,7 +29,7 @@ jobs:
 
       - name: Create deployment package
         run: |
-          zip -r lambda_layer.zip python
+          zip -r python.zip python
           
       - name: Upload artifact
         uses: actions/upload-artifact@v2
