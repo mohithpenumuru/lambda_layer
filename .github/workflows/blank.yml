@@ -40,4 +40,4 @@ jobs:
       - name: Clean up
         run: |
           rm -rf python
-          rm lambda_layer.zip
+          rm python.zip
