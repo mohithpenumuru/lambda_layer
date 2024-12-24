@@ -21,6 +21,17 @@ jobs:
         with:
           python-version: '3.11'  # Specify the Python version compatible with Lambda
 
+      - name: Install AWS CLi
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y awscli
+
+      - name: Configure AWS Cli
+        run: |
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY }}
+          aws configure set aws_secret_key_id ${{ secrets.AWS_SECRET_KEY }}
+          aws configure set default.region "us-east-1"
+
       - name: Install dependencies
         run: |
           python -m venv venv
